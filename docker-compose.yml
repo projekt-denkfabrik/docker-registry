@@ -1,0 +1,9 @@
+nginx:
+  build: /Users/peter.d/docker-registry/nginx
+  environment:
+    httpuser: manfred
+    httppass: kurt 
+  ports:
+    #- 4443:443
+    - 8012:80
+
