@@ -10,7 +10,19 @@ ENV httpuser=testuser	\
 ENV country="/C=DE" region="/ST=Hessen" organization="/O=projekt-denkfabrik" email="/emailAddress=develop@projekt-denkfabrik.de" 	
 
 # Install nginx and apache2-utils
-RUN apt-get update && apt-get install -y nginx && apt-get install -y apache2-utils && apt-get install -y openssl
+RUN apt-get update && apt-get install -y nginx && apt-get install -y apache2-utils && apt-get install -y openssl && apt-get install -y wget
+
+# Install salt minion
+#RUN wget -O - https://repo.saltstack.com/apt/ubuntu/ubuntu14/latest/SALTSTACK-GPG-KEY.pub | sudo apt-key add - && \
+#    apt-get install -y software-properties-common && \
+#    add-apt-repository ppa:saltstack/salt && \
+#		apt-get update && apt-get install -y salt-minion
+
+# Install ansible
+RUN apt-get install -y software-properties-common && \
+    apt-add-repository ppa:ansible/ansible && \
+		apt-get update && \
+		apt-get install -y ansible
 
 # Create httppasswd and X509 cert
 RUN htpasswd -bn ${httpuser} ${httppass} > /etc/nginx/conf.d/htpasswd && \
